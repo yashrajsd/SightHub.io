@@ -22,6 +22,7 @@ body {
 .hide-scrollbar::-webkit-scrollbar {
   display: none; /* Safari and Chrome */
 }
+
 @layer base {
   :root {
     --background: 0 0% 100%;

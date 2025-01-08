@@ -2,12 +2,18 @@
 import { connect } from "../asraclient";
 import { NextResponse } from "next/server";
 
-export async function createUser(user: any) {
+interface User {
+    name: string;
+    email: string;
+    id: string;
+}
+
+export async function createUser(user: User) {
     try {
         const db = await connect();
         const userCollection = db.collection('users');
 
-        const userDoc = await userCollection.findOne({ email:user.email });
+        const userDoc = await userCollection.findOne({ email: user.email });
         if (userDoc) {
             return JSON.parse(JSON.stringify(userDoc));
         }

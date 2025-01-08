@@ -50,9 +50,8 @@ export async function POST(req:Request){
 
         const user ={
             name:first_name+" "+last_name,
-            email:email_addresses,
-            userId:id,
-            projects:[]
+            email:email_addresses[0].email_address,
+            id:id,
         }
         const newUser = await createUser(user)
         return NextResponse.json({message:'New user created rey baba',user:newUser})
