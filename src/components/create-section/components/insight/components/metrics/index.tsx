@@ -2,10 +2,14 @@ import { MetricsOptions, metricProps } from '@/constants/constants';
 import { Trash2 } from 'lucide-react';
 import React, { useState } from 'react';
 
+type FormData = {
+    fields: string[];
+    [key: string]: string | string[]; // Other keys will map to string or array of strings
+};
 
 const Metrics = () => {
     const [selected, setSelected] = useState<metricProps[]>([]);
-    const [formData, setFormData] = useState<{ [key: string]: any }>({
+    const [formData, setFormData] = useState<FormData>({
         fields: [], 
     });
 
