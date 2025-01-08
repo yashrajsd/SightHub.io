@@ -13,7 +13,7 @@ const Page = () => {
     useEffect(()=>{
         setSection([]);
         console.log(sectionType)
-    })
+    },[])
 
     return (
         <div className='flex flex-1 justify-center h-[90vh]'>
