@@ -2,18 +2,16 @@ import { MetricsOptions, metricProps } from '@/constants/constants';
 import { Trash2 } from 'lucide-react';
 import React, { useState } from 'react';
 
-type Props = {};
 
-const Metrics = (props: Props) => {
+const Metrics = () => {
     const [selected, setSelected] = useState<metricProps[]>([]);
     const [formData, setFormData] = useState<{ [key: string]: any }>({
-        fields: [], // Store the 'Field' type items here
+        fields: [], 
     });
 
     const handleSelection = (item: metricProps) => {
         setSelected((prevSelected) => [...prevSelected, item]);
 
-        // Handle 'Input' type by adding to formData individually
         if (item.type === 'Input') {
             setFormData((prevFormData) => ({
                 ...prevFormData,
@@ -21,11 +19,11 @@ const Metrics = (props: Props) => {
             }));
         }
 
-        // Handle 'Field' type by adding to the 'fields[]' array
+
         if (item.type === 'Field') {
             setFormData((prevFormData) => ({
                 ...prevFormData,
-                fields: [...prevFormData.fields, item.label], // Add to fields array
+                fields: [...prevFormData.fields, item.label], 
             }));
         }
     };
@@ -35,7 +33,6 @@ const Metrics = (props: Props) => {
             prevSelected.filter((item) => item.label !== label)
         );
 
-        // Handle 'Input' type by deleting from formData
         if (formData[label] !== undefined) {
             setFormData((prevFormData) => {
                 const updatedData = { ...prevFormData };
@@ -44,7 +41,6 @@ const Metrics = (props: Props) => {
             });
         }
 
-        // Handle 'Field' type by removing from the fields array
         if (formData.fields.includes(label)) {
             setFormData((prevFormData) => ({
                 ...prevFormData,
