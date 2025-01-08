@@ -1,7 +1,7 @@
 'use client'
 import ComponentPopup from '@/components/component-popup';
 import { Info, Plus } from 'lucide-react';
-import React, {useState } from 'react';
+import React, {useEffect, useState } from 'react';
 
 
 const Page = () => {
@@ -9,6 +9,10 @@ const Page = () => {
     const [addSection,setAddSection] = useState(false);
     const [createSection,setCreateSection] = useState<React.ReactNode[]>([]);
     const [sectionType,setSectionType] = useState<string>('')
+
+    useEffect(()=>{
+        setSection([])
+    },[])
 
 
     return (
