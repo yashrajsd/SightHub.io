@@ -8,12 +8,14 @@ type Props = {
     setSectionType: React.Dispatch<React.SetStateAction<string>>
     setCreateSection: React.Dispatch<React.SetStateAction<React.ReactNode[]>>
     setAddSection:React.Dispatch<React.SetStateAction<boolean>>
+    sectionType:string
 }
 
 
-const ComponentPopup = ({ setSectionType, setCreateSection ,setAddSection}: Props) => {
+const ComponentPopup = ({ setSectionType, setCreateSection ,setAddSection,sectionType}: Props) => {
 
     const handleCreation = (type: string) => {
+        console.log(sectionType)
         setSectionType(type);
         setCreateSection((prevSections) => [...prevSections, <CreateSection sectionType={type} key={uuid()}/>]);
         setAddSection(false);

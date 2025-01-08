@@ -1,7 +1,7 @@
 'use client'
 import ComponentPopup from '@/components/component-popup';
 import { Info, Plus } from 'lucide-react';
-import React, { useEffect, useState } from 'react';
+import React, {useState } from 'react';
 
 
 const Page = () => {
@@ -10,10 +10,6 @@ const Page = () => {
     const [createSection,setCreateSection] = useState<React.ReactNode[]>([]);
     const [sectionType,setSectionType] = useState<string>('')
 
-    useEffect(()=>{
-        setSection([]);
-        console.log(sectionType)
-    },[])
 
     return (
         <div className='flex flex-1 justify-center h-[90vh]'>
@@ -39,7 +35,7 @@ const Page = () => {
                 <button  className='w-full h-full  flex p-4 items-center justify-center border-dashed gap-2 border-[#3F3F46] border-[1px] p-2 px-4 rounded-md' onClick={() => setAddSection(!addSection)}>
                    <Plus size={19}/> New Section
                 </button>
-                {(<>{addSection && <ComponentPopup setSectionType={setSectionType} setCreateSection={setCreateSection} setAddSection={setAddSection}/>}</>)}
+                {(<>{addSection && <ComponentPopup sectionType={sectionType} setSectionType={setSectionType} setCreateSection={setCreateSection} setAddSection={setAddSection}/>}</>)}
             </span>
                 </div>
             </div>
