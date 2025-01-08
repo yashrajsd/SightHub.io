@@ -1,11 +1,11 @@
 'use client'
 import {Plus} from 'lucide-react'
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ClerkAuthState from '../clerk-auth-state'
 import { useUser } from '@clerk/nextjs'
 
-type Props = {}
+
 
 type Insight = {
     link: string
@@ -28,15 +28,19 @@ const data = [
 ];
 
 
-const Sidebar = (props: Props) => {
-    const [insights, setInsights] = useState<Insight[]>(data);
+const Sidebar = () => {
+    const [insights, setInsights] = useState<Insight[]>([]);
     const { user, isLoaded } = useUser();
+
+    useEffect(()=>{
+        setInsights(data);
+    },[])
 
     return (
         <div className='w-[18%] h-full flex'>
             <div className='w-full h-fit rounded-md p-4'>
                 <div className='border-[1px] text-[0.8rem] flex items-center gap-2 mb-2 font-aeonik w-full border-[#C6C6C6] px-4 py-4 rounded-md text-[0.7rem] text-black'>
-                    <ClerkAuthState/> {user?.firstName} {user?.lastName}
+                    {isLoaded ? (<><ClerkAuthState/> {user?.firstName} {user?.lastName}</>):('Loading')}
                 </div>
                 <button className='border-[1px] flex items-center gap-2 justify-center mb-4 font-aeonik w-full border-[#C6C6C6] px-4 py-2 rounded-md text-[0.7rem] text-black'>
                    <Plus size={16}/> 

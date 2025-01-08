@@ -3,7 +3,7 @@ import { auth, currentUser } from "@clerk/nextjs/server";
 import {connect} from "../asraclient"
 import { NextResponse } from "next/server";
 
-export async function createUser(user:any) {
+export async function createUser() {
     try{
         const db = await connect();
         const userCollection = db.collection('users')
@@ -21,6 +21,7 @@ export async function createUser(user:any) {
         })
         return JSON.parse(JSON.stringify(newUser))
     }catch(err){
-        NextResponse.json({message:"oops ma chud gayi",status:505})
+        console.error(err);  
+        return NextResponse.json({ message: "Oops, something went wrong", status: 505 })
     }
 }

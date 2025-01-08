@@ -1,15 +1,20 @@
 'use client'
 import ComponentPopup from '@/components/component-popup';
 import { Info, Plus } from 'lucide-react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-type Props = {};
 
-const Page = (props: Props) => {
+const Page = () => {
     const [section, setSection] = useState<React.ReactNode[]>([]);
     const [addSection,setAddSection] = useState(false);
     const [createSection,setCreateSection] = useState<React.ReactNode[]>([]);
     const [sectionType,setSectionType] = useState<string>('')
+
+    useEffect(()=>{
+        setSection([]);
+        console.log(sectionType)
+    })
+
     return (
         <div className='flex flex-1 justify-center h-[90vh]'>
             <div className='w-[75%] h-full overflow-hidden'>

@@ -2,6 +2,7 @@ import React from 'react'
 import CreateSection from '../create-section'
 import { motion } from 'motion/react'
 import { SECTION_TYPES } from '@/constants/constants'
+import {v4 as uuid} from 'uuid'
 
 type Props = {
     setSectionType: React.Dispatch<React.SetStateAction<string>>
@@ -14,7 +15,7 @@ const ComponentPopup = ({ setSectionType, setCreateSection ,setAddSection}: Prop
 
     const handleCreation = (type: string) => {
         setSectionType(type);
-        setCreateSection((prevSections) => [...prevSections, <CreateSection sectionType={type} />]);
+        setCreateSection((prevSections) => [...prevSections, <CreateSection sectionType={type} key={uuid()}/>]);
         setAddSection(false);
     }
 

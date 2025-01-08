@@ -3,9 +3,8 @@ import { Sparkles } from 'lucide-react'
 import React, { useState } from 'react'
 import InputComponent from './components/Input-component'
 
-type Props = {}
 
-const Insight = (props: Props) => {
+const Insight = () => {
   const [choosen, setChoosen] = useState('')
   return (
     <div className='border-[1px] rounded-md p-4'>

@@ -1,9 +1,8 @@
 import { Edit, Link } from 'lucide-react'
 import React from 'react'
 
-type Props = {}
 
-const Topbar = (props: Props) => {
+const Topbar = () => {
   return (
     <div className='py-4'>
         <div className='w-full flex tems-center justify-center font-aeonik'>

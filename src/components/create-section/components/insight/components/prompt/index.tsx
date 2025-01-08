@@ -1,8 +1,6 @@
 import React from 'react'
 
-type Props = {}
-
-const Prompt = (props: Props) => {
+const Prompt = () => {
 
     return (
         <div className='w-full font-aeonik flex'>

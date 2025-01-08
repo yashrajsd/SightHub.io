@@ -1,5 +1,4 @@
-import { AlignJustify, AudioWaveform, Brain, ChartNoAxesCombined, EqualApproximately, Eye, IdCard, ScanText, TextSelect, ThumbsUp } from "lucide-react"
-import { type } from "os"
+import { AlignJustify, AudioWaveform, Brain, ChartNoAxesCombined, EqualApproximately, Eye, IdCard, ScanText, ThumbsUp } from "lucide-react"
 import {v4 as uuid} from 'uuid'
 
 

@@ -1,8 +1,7 @@
 import React from 'react'
 
-type Props = {}
 
-const GraphCreate = (props: Props) => {
+const GraphCreate = () => {
   return (
     <div>GraphCreate</div>
   )
