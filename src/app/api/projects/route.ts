@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createProject, getProjects } from '@/lib/actions/project.action';
-import { auth, clerkClient, createClerkClient, getAuth, verifyToken } from '@clerk/nextjs/server';
+import {createClerkClient} from '@clerk/nextjs/server';
 
 export async function POST(req: NextRequest) {
   try {
@@ -69,6 +69,4 @@ export async function GET(req: NextRequest) {
     console.log("Error fetching projects: ",err)
     return NextResponse.json({message:"Internal server error"},{status:500})
   }
-
-  return NextResponse.json({message:"Working"},{status:200})
 }

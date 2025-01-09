@@ -1,6 +1,11 @@
 import { connect } from "../asraclient";
 
-export async function createProject(projectData: any, userId: string) {
+type PData={
+    name:string,
+    description:string
+}
+
+export async function createProject(projectData: PData, userId: string) {
     try {
         const db = await connect();
         const projectCollection = db.collection('projects');
