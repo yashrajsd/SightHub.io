@@ -78,7 +78,7 @@ const Sidebar = () => {
           )}
         </ul>
       </div>
-      {create && <CreateProject setCreate={setCreate} />}
+      {create && <CreateProject setCreate={setCreate} fetchData={fetchUserProjects} />}
     </div>
   );
 };

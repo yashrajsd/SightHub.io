@@ -3,7 +3,7 @@ import { useRouter } from 'next/navigation';
 
 type Props = {
   setCreate: React.Dispatch<React.SetStateAction<boolean>>;
-  fetchData:() => Promise<void>; 
+  fetchData: () => Promise<void>;
 };
 
 const CreateProject = ({ setCreate , fetchData}: Props) => {
@@ -11,13 +11,13 @@ const CreateProject = ({ setCreate , fetchData}: Props) => {
   const [description, setDescription] = useState('');
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-
+  
   const handleCreateProject = async () => {
     if (!projectName || !description) {
       alert('Please provide both project name and description');
       return;
     }
-  
+
     setLoading(true);
   
     try {
