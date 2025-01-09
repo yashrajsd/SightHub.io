@@ -4,37 +4,37 @@ import { Plus } from 'lucide-react';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import ClerkAuthState from '../clerk-auth-state';
-import { useAuth, useUser } from '@clerk/nextjs';
+import { useUser } from '@clerk/nextjs';
 import CreateProject from '../create-project';
 
 type Insight = {
-  link: string;
-  label: string;
+  id: string;
+  name: string;
 };
 
 const Sidebar = () => {
   const [insights, setInsights] = useState<Insight[]>([]);
   const { user, isLoaded } = useUser();
-  const { getToken } = useAuth();
   const [create, setCreate] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchUserProjects = async () => {
       try {
-        const token = await getToken();
-        const response = await fetch('https://sight-hub-io.vercel.app/api/get-projects', {
+        const response = await fetch('https://sight-hub-io.vercel.app/api/projects', {
           method: 'GET',
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
         });
-
         if (!response.ok) {
           throw new Error('Failed to fetch projects');
         }
-
         const data = await response.json();
-        setInsights(data.projectsData);
+
+        // Map `label` from backend to `name` for frontend consistency
+        const formattedData = data.projectsData.map((item: { id: string; label: string }) => ({
+          id: item.id,
+          name: item.label,
+        }));
+
+        setInsights(formattedData);
       } catch (error) {
         console.error('Error fetching projects:', error);
         setInsights([]);
@@ -42,7 +42,7 @@ const Sidebar = () => {
     };
 
     fetchUserProjects();
-  }, [getToken]);
+  }, []);
 
   return (
     <div className="w-[18%] h-full flex">
@@ -66,8 +66,8 @@ const Sidebar = () => {
           {insights.length > 0 ? (
             insights.map((item, index) => (
               <li className="text-[#606060] ml-4 text-[0.8rem]" key={index}>
-                <Link href={`/dashboard/yashrajsd/${item.link}`}>
-                  {item.label}
+                <Link href={`/dashboard/yashrajsd/${item.id}`}>
+                  {item.name}
                 </Link>
               </li>
             ))
