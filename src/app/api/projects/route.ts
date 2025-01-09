@@ -53,7 +53,7 @@ export async function GET(req: NextRequest) {
 
   const {isSignedIn} = await clerkClient.authenticateRequest(req,{
     jwtKey:process.env.CLERK_JWT_KEY,
-    authorizedParties:['http://localhost:3000']
+    authorizedParties:['https://sight-hub-io.vercel.app']
   })
 
   if (!isSignedIn) {
