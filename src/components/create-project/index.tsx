@@ -3,9 +3,10 @@ import { useRouter } from 'next/navigation';
 
 type Props = {
   setCreate: React.Dispatch<React.SetStateAction<boolean>>;
+  fetchData:() => Promise<void>; 
 };
 
-const CreateProject = ({ setCreate }: Props) => {
+const CreateProject = ({ setCreate , fetchData}: Props) => {
   const [projectName, setProjectName] = useState('');
   const [description, setDescription] = useState('');
   const [loading, setLoading] = useState(false);
@@ -36,6 +37,7 @@ const CreateProject = ({ setCreate }: Props) => {
       const data = await response.json();
   
       if (data.projectId) {
+        fetchData();
         router.push(`/dashboard/yashrajsd/${data.projectId}`);
       } else {
         alert('Error creating project');

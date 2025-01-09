@@ -17,30 +17,30 @@ const Sidebar = () => {
   const { user, isLoaded } = useUser();
   const [create, setCreate] = useState<boolean>(false);
 
-  useEffect(() => {
-    const fetchUserProjects = async () => {
-      try {
-        const response = await fetch('https://sight-hub-io.vercel.app/api/projects', {
-          method: 'GET',
-        });
-        if (!response.ok) {
-          throw new Error('Failed to fetch projects');
-        }
-        const data = await response.json();
-
-        // Map `label` from backend to `name` for frontend consistency
-        const formattedData = data.projectsData.map((item: { id: string; label: string }) => ({
-          id: item.id,
-          name: item.label,
-        }));
-
-        setInsights(formattedData);
-      } catch (error) {
-        console.error('Error fetching projects:', error);
-        setInsights([]);
+  const fetchUserProjects = async () => {
+    try {
+      const response = await fetch('https://sight-hub-io.vercel.app/api/projects', {
+        method: 'GET',
+      });
+      if (!response.ok) {
+        throw new Error('Failed to fetch projects');
       }
-    };
+      const data = await response.json();
 
+      // Map `label` from backend to `name` for frontend consistency
+      const formattedData = data.projectsData.map((item: { id: string; label: string }) => ({
+        id: item.id,
+        name: item.label,
+      }));
+
+      setInsights(formattedData);
+    } catch (error) {
+      console.error('Error fetching projects:', error);
+      setInsights([]);
+    }
+  };
+
+  useEffect(() => {
     fetchUserProjects();
   }, []);
 
@@ -65,7 +65,7 @@ const Sidebar = () => {
         <ul className="flex flex-col gap-3">
           {insights.length > 0 ? (
             insights.map((item, index) => (
-              <li className="text-[#606060] ml-4 text-[0.8rem]" key={index}>
+              <li className="text-[#606060] hover:text-black ml-4 text-[0.8rem]" key={index}>
                 <Link href={`/dashboard/yashrajsd/${item.id}`}>
                   {item.name}
                 </Link>
