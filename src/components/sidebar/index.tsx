@@ -22,7 +22,7 @@ const Sidebar = () => {
     const fetchUserProjects = async () => {
       try {
         const token = await getToken();
-        const response = await fetch('/api/get-projects', {
+        const response = await fetch('https://sight-hub-io.vercel.app/api/get-projects', {
           method: 'GET',
           headers: {
             Authorization: `Bearer ${token}`,
