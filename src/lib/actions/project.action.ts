@@ -39,7 +39,7 @@ export async function getProjects() {
         const projects = await projectCollection.find({createdBy:'test-user-id-123'},{projection:{_id:1,name:1}}).toArray();
         const formattedProjects = projects.map(project => ({
             id: project._id, 
-            label: project.label,
+            label: project.name,
         }));
         return formattedProjects;
     }catch(err){
