@@ -1,17 +1,25 @@
 import { MetricsOptions, metricProps } from '@/constants/constants';
 import { Trash2 } from 'lucide-react';
+import { useParams } from 'next/navigation';
 import React, { useState } from 'react';
 
 type FormData = {
     fields: string[];
-    [key: string]: string | string[]; // Other keys will map to string or array of strings
+    [key: string]: string | string[];
 };
 
-const Metrics = () => {
+type Props={
+    handleAddSection: (data:string) => Promise<void>;
+}
+
+const Metrics = ({handleAddSection}:Props) => {
     const [selected, setSelected] = useState<metricProps[]>([]);
+    const {project} = useParams();
     const [formData, setFormData] = useState<FormData>({
-        fields: [], 
+        fields: [],
     });
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
 
     const handleSelection = (item: metricProps) => {
         setSelected((prevSelected) => [...prevSelected, item]);
@@ -23,11 +31,10 @@ const Metrics = () => {
             }));
         }
 
-
         if (item.type === 'Field') {
             setFormData((prevFormData) => ({
                 ...prevFormData,
-                fields: [...prevFormData.fields, item.label], 
+                fields: [...prevFormData.fields, item.label],
             }));
         }
     };
@@ -48,7 +55,7 @@ const Metrics = () => {
         if (formData.fields.includes(label)) {
             setFormData((prevFormData) => ({
                 ...prevFormData,
-                fields: prevFormData.fields.filter((field:string) => field !== label),
+                fields: prevFormData.fields.filter((field: string) => field !== label),
             }));
         }
     };
@@ -64,9 +71,36 @@ const Metrics = () => {
         (option) => !selected.some((item) => item.label === option.label)
     );
 
-    const handleSubmit = () => {
-        console.log('Form Data:', formData);
+    const handleSubmit = async () => {
+        setLoading(true);
+        setError(null);
+        try {
+            const res = await fetch('https://sight-hub-io.vercel.app/api/langflow', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ input_value: JSON.stringify(formData) ,projectId:project}),
+              });
+        
+              if (!res.ok) {
+                throw new Error(`Error: ${res.status} ${res.statusText}`);
+            }
+            const data = await res.json();
+            handleAddSection(data?.message);
+            setFormData({ fields: [] });
+            setSelected([]);
+        } catch (err: any) {
+            console.error('Error submitting data:', err.message);
+            setError(err.message || 'Something went wrong.');
+        } finally {
+            setLoading(false);
+        }
     };
+    
+    
+    
+    
 
     return (
         <div className="w-full">
@@ -110,10 +144,14 @@ const Metrics = () => {
             </div>
             <button
                 onClick={handleSubmit}
-                className="border-[1px] flex items-center justify-center w-full text-white p-2 bg-[#292929] transition duration-300 rounded-md my-4 "
+                disabled={loading}
+                className={`border-[1px] flex items-center justify-center w-full text-white p-2 ${
+                    loading ? 'bg-gray-400' : 'bg-[#292929]'
+                } transition duration-300 rounded-md my-4`}
             >
-                Generate
+                {loading ? 'Submitting...' : 'Generate'}
             </button>
+            {error && <div className="text-white font-aeonik mt-1 py-2 px-4 w-full bg-red-400 rounded-md border-red">{error}</div>}
         </div>
     );
 };

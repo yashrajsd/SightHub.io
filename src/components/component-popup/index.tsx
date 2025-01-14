@@ -5,19 +5,21 @@ import { SECTION_TYPES } from '@/constants/constants'
 import {v4 as uuid} from 'uuid'
 
 type Props = {
-    setSectionType: React.Dispatch<React.SetStateAction<string>>
-    setCreateSection: React.Dispatch<React.SetStateAction<React.ReactNode[]>>
-    setAddSection:React.Dispatch<React.SetStateAction<boolean>>
-    sectionType:string
-}
+    setSectionType: React.Dispatch<React.SetStateAction<string>>;
+    setCreateSection: React.Dispatch<React.SetStateAction<React.ReactNode[]>>;
+    setAddSection: React.Dispatch<React.SetStateAction<boolean>>;
+    handleAddSection: (data:string) => Promise<void>; 
+    sectionType: string;
+};
 
 
-const ComponentPopup = ({ setSectionType, setCreateSection ,setAddSection,sectionType}: Props) => {
+
+const ComponentPopup = ({ setSectionType, setCreateSection ,setAddSection,sectionType,handleAddSection}: Props) => {
 
     const handleCreation = (type: string) => {
         console.log(sectionType)
         setSectionType(type);
-        setCreateSection((prevSections) => [...prevSections, <CreateSection sectionType={type} key={uuid()}/>]);
+        setCreateSection((prevSections) => [...prevSections, <CreateSection sectionType={type} handleAddSection={handleAddSection} key={uuid()}/>]);
         setAddSection(false);
     }
 

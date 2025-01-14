@@ -4,17 +4,18 @@ import Metrics from '../metrics'
 
 type Props = {
     type:string
+    handleAddSection: (data:string) => Promise<void>;
 }
 
-const InputComponent = ({type}: Props) => {
+const InputComponent = ({type,handleAddSection}: Props) => {
     let content;
 
     switch (type) {
         case 'prompt':
-            content = <Prompt/>
+            content = <Prompt handleAddSection={handleAddSection}/>
             break;
         case 'metric':
-            content = <Metrics/>
+            content = <Metrics handleAddSection={handleAddSection}/>
             break;
         default:
             content = <div>!!Error occured!!</div>;

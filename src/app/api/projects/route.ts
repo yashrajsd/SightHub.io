@@ -15,37 +15,7 @@ export async function POST(req: NextRequest) {
 }
 
 export async function GET(req: NextRequest) {
-  // const { sessionId } = await auth()
 
-  // if (!sessionId) {
-  //   return Response.json({ message: 'Unauthorized' }, { status: 401 })
-  // }
-
-  // const template = 'test'
-
-  // const client = await clerkClient()
-
-
-
-  // try {
-  //   const payload = await verifyToken(token);
-
-  //   const userId = payload.sub;
-
-  //   // Fetch projects for the authenticated user
-  //   const projectsData = await getProjects(userId);
-
-  //   // Filter only the necessary fields (e.g., ID and label) before returning
-  //   const filteredProjects = projectsData.map((project: { id: string; label: string }) => ({
-  //     id: project.id,
-  //     label: project.label,
-  //   }));
-
-  //   return NextResponse.json({ projects: filteredProjects });
-  // } catch (err) {
-  //   console.error('Token verification failed or error fetching projects:', err);
-  //   return NextResponse.json({ message: 'Unauthorized: Invalid token or error fetching projects' }, { status: 401 });
-  // }
   const clerkClient = createClerkClient({
     secretKey:process.env.CLERK_SECRET_KEY,
     publishableKey:process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,
@@ -60,6 +30,7 @@ export async function GET(req: NextRequest) {
   if (!isSignedIn) {
     return Response.json({ status: 401 })
   }
+
   try{
     const projectsData = await getProjects();
     if(!(projectsData.length>0)){

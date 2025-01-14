@@ -1,6 +1,6 @@
 'use client';
 
-import { Plus } from 'lucide-react';
+import { Loader, Plus } from 'lucide-react';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import ClerkAuthState from '../clerk-auth-state';
@@ -16,9 +16,11 @@ const Sidebar = () => {
   const [insights, setInsights] = useState<Insight[]>([]);
   const { user, isLoaded } = useUser();
   const [create, setCreate] = useState<boolean>(false);
+  const [loading, setLoading] = useState(true);
 
   const fetchUserProjects = async () => {
     try {
+      //https://sight-hub-io.vercel.app
       const response = await fetch('https://sight-hub-io.vercel.app/api/projects', {
         method: 'GET',
       });
@@ -27,13 +29,13 @@ const Sidebar = () => {
       }
       const data = await response.json();
 
-      // Map `label` from backend to `name` for frontend consistency
       const formattedData = data.projectsData.map((item: { id: string; label: string }) => ({
         id: item.id,
         name: item.label,
       }));
 
       setInsights(formattedData);
+      setLoading(false)
     } catch (error) {
       console.error('Error fetching projects:', error);
       setInsights([]);
@@ -62,20 +64,20 @@ const Sidebar = () => {
         >
           <Plus size={16} />
         </button>
-        <ul className="flex flex-col gap-3">
-          {insights.length > 0 ? (
-            insights.map((item, index) => (
-              <li className="text-[#606060] hover:text-black ml-4 text-[0.8rem]" key={index}>
-                <Link href={`/dashboard/yashrajsd/${item.id}`}>
-                  {item.name}
-                </Link>
-              </li>
-            ))
-          ) : (
-            <p className="text-white p-2 text-[0.8rem] bg-[#4C4CFA] rounded-md">
-              🥳 Start by creating the first project
-            </p>
-          )}
+        <ul className="flex w-full flex-col gap-3">
+          {loading ? <div className='w-full flex items-center justify-center'>
+            <Loader />
+          </div> : (<>
+            {insights.length > 0 && (
+              insights.map((item, index) => (
+                <li className="text-[#606060] hover:text-black ml-4 text-[0.8rem]" key={index}>
+                  <Link href={`/dashboard/yashrajsd/${item.id}`}>
+                    {item.name}
+                  </Link>
+                </li>
+              ))
+            )}
+          </>)}
         </ul>
       </div>
       {create && <CreateProject setCreate={setCreate} fetchData={fetchUserProjects} />}

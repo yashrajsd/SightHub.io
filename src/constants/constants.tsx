@@ -1,4 +1,4 @@
-import { AlignJustify, AudioWaveform, Brain, ChartNoAxesCombined, EqualApproximately, Eye, IdCard, ScanText, ThumbsUp } from "lucide-react"
+import { AlignJustify, AudioWaveform, Brain, ChartNoAxesCombined, EqualApproximately, Eye, Heading, IdCard, PiIcon, ScanText, ThumbsUp } from "lucide-react"
 import {v4 as uuid} from 'uuid'
 
 
@@ -80,13 +80,23 @@ export const MetricsOptions:metricProps[]=[
     },
     {
         label:'Views',
-        icon:<Eye/>,
+        icon:<Eye size={19}/>,
         type:'Field'
     },
     {
         label:'ID',
-        icon:<IdCard/>,
+        icon:<IdCard size={19}/>,
         type:'Input',
         placeholder:'Enter ID'
+    },
+    {
+        label:'Average',
+        icon:<PiIcon size={19}/>,
+        type:"Field"
+    },
+    {
+        label:'Heading',
+        icon:<Heading size={19}/>,
+        type:'Field'
     }
 ]

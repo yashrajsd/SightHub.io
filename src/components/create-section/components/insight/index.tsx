@@ -3,8 +3,11 @@ import { Sparkles } from 'lucide-react'
 import React, { useState } from 'react'
 import InputComponent from './components/Input-component'
 
+type Props={
+  handleAddSection: (data:string) => Promise<void>;
+}
 
-const Insight = () => {
+const Insight = ({handleAddSection}:Props) => {
   const [choosen, setChoosen] = useState('')
   return (
     <div className='border-[1px] rounded-md p-4'>
@@ -32,7 +35,7 @@ const Insight = () => {
           )
         }
       </div>
-      {choosen && <InputComponent type={choosen}/>}
+      {choosen && <InputComponent type={choosen} handleAddSection={handleAddSection}/>}
     </div>
   )
 }

@@ -1,8 +1,27 @@
+import { NextResponse } from "next/server";
 import { connect } from "../asraclient";
-
+import {v4 as uuid} from 'uuid'
 type PData={
     name:string,
     description:string
+}
+
+
+export async function getProjectData(projectId: string) {
+  try {
+      const db = await connect();
+      const projectCollection = db.collection('projects');
+      const projectData = await projectCollection.findOne({ _id: projectId });
+
+      if (!projectData) {
+          throw new Error('Project not found.');
+      }
+
+      return projectData;
+  } catch (err) {
+      console.error('Error fetching project data:', err);
+      throw new Error('Internal server error');
+  }
 }
 
 export async function createProject(projectData: PData, userId: string) {
@@ -21,7 +40,7 @@ export async function createProject(projectData: PData, userId: string) {
 
         const userCollection = db.collection('users');
         await userCollection.updateOne(
-            { userId },
+            { userId:"test-user-123" },
             { $push: { projects: projectId } }
         );
 
@@ -47,3 +66,32 @@ export async function getProjects() {
         throw new Error("Error fetching projects")
     }
 }
+
+export async function updateProjectData(data: string, projectId: string) {
+    try {
+      const db = await connect();
+      const projectCollection = db.collection('projects');
+  
+      const newSection = {
+        id: uuid(), 
+        content: data, 
+      };
+  
+      const response = await projectCollection.updateOne(
+        { _id: projectId },
+        {
+          $push: { sections: newSection },
+        }
+      );
+  
+      if (response.modifiedCount === 0) {
+        console.log('No document was updated.');
+      } else {
+        console.log('Project updated successfully.');
+      }
+    } catch (err: any) {
+      console.error('Error occurred:', err);
+      throw new Error('Error updating the project');
+    }
+  }
+  

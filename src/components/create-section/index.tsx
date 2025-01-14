@@ -4,14 +4,15 @@ import GraphCreate from './components/graph';
 
 type Props = {
     sectionType: string
+    handleAddSection: (data:string) => Promise<void>;
 }
 
-const CreateSection = ({ sectionType }: Props) => {
+const CreateSection = ({ sectionType ,handleAddSection}: Props) => {
     let content;
 
     switch (sectionType) {
         case 'insight':
-            content = <InsightCreate/>
+            content = <InsightCreate handleAddSection={handleAddSection}/>
             break;
         case 'graph':
             content = <GraphCreate/>
