@@ -1,4 +1,3 @@
-import { NextResponse } from "next/server";
 import { connect } from "../asraclient";
 import {v4 as uuid} from 'uuid'
 type PData={
@@ -89,7 +88,7 @@ export async function updateProjectData(data: string, projectId: string) {
       } else {
         console.log('Project updated successfully.');
       }
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error occurred:', err);
       throw new Error('Error updating the project');
     }

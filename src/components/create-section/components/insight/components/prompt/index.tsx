@@ -1,8 +1,5 @@
-import TypingAnimation from '@/components/ui/typing-animation';
 import { useParams } from 'next/navigation';
 import React, { useState } from 'react';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm'
 
 type Props={
   handleAddSection: (data:string) => Promise<void>;
@@ -32,10 +29,13 @@ const Prompt = ({handleAddSection}:Props) => {
   
         const data = await res.json();
         handleAddSection(data?.message);
-      } catch (err: any) {
-        console.error('Error submitting data:', err.message);
-        setError(err.message || 'Something went wrong.');
-      } finally {
+      }  catch (err: unknown) {
+        if (err instanceof Error) {
+            console.error('Error:', err.message);
+        } else {
+            console.error('Unexpected error:', err);
+        }
+    }  finally {
         setLoading(false);
       }
     };

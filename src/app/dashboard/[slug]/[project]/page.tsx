@@ -1,5 +1,4 @@
 'use client';
-import { TypeAnimation } from 'react-type-animation';
 import ComponentPopup from '@/components/component-popup';
 import { Info, Plus } from 'lucide-react';
 import { useParams } from 'next/navigation';
@@ -7,6 +6,7 @@ import React, { ReactNode, useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { v4 as uuid } from 'uuid'
+import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 
 const Page = () => {
   const { project } = useParams()
@@ -43,7 +43,7 @@ const Page = () => {
 
       fetchProjectData();
     }
-  }, []);
+  }, [project]);
 
   const handleAddSection = async (data: string) => {
     setLoading(true);
@@ -76,7 +76,11 @@ const Page = () => {
               </div>
             </div>
           )}
-
+          {loading && (<DotLottieReact
+            src='/animations/loading.json'
+            loop
+            autoplay
+          />)}
 
           {createSection.map((section, index) => (
             <div key={index} className="w-full px-8 py-4">

@@ -90,9 +90,13 @@ const Metrics = ({handleAddSection}:Props) => {
             handleAddSection(data?.message);
             setFormData({ fields: [] });
             setSelected([]);
-        } catch (err: any) {
-            console.error('Error submitting data:', err.message);
-            setError(err.message || 'Something went wrong.');
+        } catch (err: unknown) {
+            if (err instanceof Error) {
+                console.error('Error:', err.message);
+                
+            } else {
+                console.error('Unexpected error:', err);
+            }
         } finally {
             setLoading(false);
         }

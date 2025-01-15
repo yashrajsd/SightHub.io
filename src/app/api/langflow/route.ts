@@ -1,7 +1,7 @@
 import { updateProjectData } from '@/lib/actions/project.action';
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest) {
   const { input_value,projectId } = await req.json();
   console.log(input_value);
 
