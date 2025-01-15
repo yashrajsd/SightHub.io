@@ -40,7 +40,7 @@ export async function POST(req: NextRequest) {
     const message =data.outputs[0].outputs[0].artifacts.message || 'No message available';
 
     return NextResponse.json({ message }, { status: 200 });
-  } catch (error: any) {
+  } catch (error) {
     return NextResponse.json({ message: 'Internal server error', error }, { status: 500 });
   }
 }
