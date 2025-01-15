@@ -1,5 +1,6 @@
+import AnimatedShinyText from "@/components/ui/animated-shiny-text";
 import { RainbowButton } from "@/components/ui/rainbow-button";
-import { Book } from "lucide-react";
+import { Book, Sparkles } from "lucide-react";
 import Link from "next/link";
 
 export default function Home() {
@@ -17,10 +18,13 @@ export default function Home() {
           </span>
         </div>
 
-        <div className="px-[10%] my-[2rem]">
+        <div className="px-[10%] my-[2rem] py-[3%]">
           {/* <HyperText className="font-aeonik text-[4rem] text-left cursor-pointer m-0">
             SightHub
           </HyperText> */}
+           <AnimatedShinyText className="inline-flex items-center gap-2 justify-center py-1 transition ease-out hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400">
+            <Sparkles size={15}/> Powered by AI
+           </AnimatedShinyText>
           <p className="font-aeonik text-[2rem]">
             Empowering businesses<br/>to transform raw data into actionable
             intelligence.
